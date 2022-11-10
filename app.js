@@ -1,11 +1,11 @@
 const express = require('express')
 const fs = require('fs')
-// fs.mkdir('public', (err)=>{
-//     err?console.error(err):null
-// })
-// fs.open('public/about.html', 'as', (err)=>{
-//     err?console.error(err):null
-// })
+fs.mkdir('public', (err)=>{
+    err?console.error(err):null
+})
+fs.open('public/about.html', 'as', (err)=>{
+    err?console.error(err):null
+})
 fs.writeFile('public/about.html', `<!DOCTYPE html>
 <html>
 <head>
