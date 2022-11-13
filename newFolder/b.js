@@ -1,1 +1,2 @@
-'fack'
+'Fack'
+'O! Fack!!!'
