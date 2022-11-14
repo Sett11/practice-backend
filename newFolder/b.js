@@ -1,2 +1,1 @@
-'Fack'
-'O! Fack!!!'
+let a = 2

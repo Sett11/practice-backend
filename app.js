@@ -1,37 +1,23 @@
 const fs = require('fs')
 const path = require('path')
-const readline = require('readline')
+const folder = path.join( __dirname, 'newFolder')
 
-const r1 = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-})
-
-let pathToFile = fs.createWriteStream(path.join('newFolder', 'b.js'))
-
-readline.emitKeypressEvents(process.stdin)
-process.stdin.on('keypress', (ch, key)=>{
-    if(key && key.ctrl && key.name == 'c'){
-        console.log('\n Пока! Вы пожелали выйти и остановить запись!')
+fs.readdir(folder, (err, data)=>{
+    if(err){
+        throw Error
     }
-})
-
-function write(){
-    r1.question( 'Что-нибудь напишите!', (text)=>{
-        console.log(text)
-        if(text.toLocaleLowerCase()=== 'exit'){
-            console.log('\n Пока! Вы пожелали выйти и остановить запись!')
-            r1.close()
-            return
-        }
-        pathToFile.write(text + '\n', err=>{
+    data.forEach((file)=>{
+        const pathToFile = path.join(folder, `${file}`)
+        fs.stat(pathToFile, (err, stats)=>{
             if(err){
-                console.log(err.message)
+                throw Error
             }
             else{
-                write()
+                if(stats.isFile()){
+                    const ext = path.extname()
+                    console.log(path.basename(pathToFile, ext) + '-' + ext.slice(1, ext.length) + '-' + stats.size + 'b')
+                }
             }
         })
     })
-}
-write()
+})
