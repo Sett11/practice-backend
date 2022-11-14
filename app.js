@@ -1,10 +1,22 @@
- const {Buffer} = require('buffer')
- const buffer = Buffer.from('Hello!')
- const buffer1 = Buffer.from(' ')
- const buffer2 = Buffer.from('Hello!')
- const con = Buffer.concat([buffer, buffer1, buffer2])
- console.log(con.toString())
- for(const chunc of buffer){
-    console.log(chunc.toString())
- }
- 
+const fs = require('fs')
+
+const rs = fs.createReadStream('./buffer.js')
+const ws = fs.createWriteStream('newFile.txt')
+
+ws.on('close', ()=>{
+    console.log('Writable stream has been closed!')
+})
+ws.on('error', (err)=>{
+    console.log(`Error occured: ${err}`)
+})
+ws.on('finish', ()=>{
+    console.log('Writable stream has been finished!')
+})
+ws.on('pipe', ()=>{
+    console.log('Piped to Readable stream!')
+})
+ws.on('unpipe', ()=>{
+    console.log('Unpiped to Readable stream!')
+})
+
+rs.pipe(ws)
