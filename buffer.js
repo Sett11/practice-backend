@@ -1,9 +1,15 @@
-const {Buffer} = require('buffer')
-const buffer = Buffer.from('Hello!')
-const buffer1 = Buffer.from(' ')
-const buffer2 = Buffer.from('Hello!')
-const con = Buffer.concat([buffer, buffer1, buffer2])
-console.log(con.toString())
-for(const chunc of buffer){
-   console.log(chunc.toString())
-}
+
+const buffer = Buffer.from('BUFFER!')
+
+process.stdout.write('LALALA')
+process.stdout.write('\n')
+process.stdout.write(buffer)
+process.stdout.write('\n')
+
+process.stdout.write('Write with callback', ()=>{
+    process.stdout.write('\nCallback!', ()=>{
+        process.stdout.write('\nNextCallback!', ()=>{
+            process.stdout.write('\nNewNextCallback!')
+        })
+    })
+})

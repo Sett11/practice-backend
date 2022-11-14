@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const rs = fs.createReadStream('./buffer.js')
+const rs = fs.createReadStream('./package-lock.json')
 const ws = fs.createWriteStream('newFile.txt')
 
 ws.on('close', ()=>{
