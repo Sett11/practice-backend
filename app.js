@@ -1,12 +1,29 @@
-const fs = require('fs')
+const { createServer } = require("http");
 
-const wr = fs.createWriteStream('./buffer.js')
+const port = 3000;
 
-wr.cork()
+const server = createServer((req, res) => {
+  let body = "";
 
-wr.write('1\n')
-wr.write('2\n')
-wr.write('3\n')
-wr.write('4\n')
+  req.on("data", (chunk) => {
+    body += chunk.toString();
+  });
 
-wr.uncork()
+  req.on("end", () => {
+    const parseBody = JSON.parse(body);
+    console.log("parseBody", parseBody);
+    const propsCount = Object.keys(parseBody).length;
+    console.log("propsCount", propsCount);
+    res
+      .writeHead(200, {
+        "Content-type": "text/plain",
+      })
+      .end(
+        `Body from request secretFully accepted and parsed. It has ${propsCount}`
+      );
+  });
+});
+
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
