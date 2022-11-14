@@ -1,23 +1,10 @@
-const fs = require('fs')
-const path = require('path')
-const folder = path.join( __dirname, 'newFolder')
-
-fs.readdir(folder, (err, data)=>{
-    if(err){
-        throw Error
-    }
-    data.forEach((file)=>{
-        const pathToFile = path.join(folder, `${file}`)
-        fs.stat(pathToFile, (err, stats)=>{
-            if(err){
-                throw Error
-            }
-            else{
-                if(stats.isFile()){
-                    const ext = path.extname()
-                    console.log(path.basename(pathToFile, ext) + '-' + ext.slice(1, ext.length) + '-' + stats.size + 'b')
-                }
-            }
-        })
-    })
-})
+ const {Buffer} = require('buffer')
+ const buffer = Buffer.from('Hello!')
+ const buffer1 = Buffer.from(' ')
+ const buffer2 = Buffer.from('Hello!')
+ const con = Buffer.concat([buffer, buffer1, buffer2])
+ console.log(con.toString())
+ for(const chunc of buffer){
+    console.log(chunc.toString())
+ }
+ 
