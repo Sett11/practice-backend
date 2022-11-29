@@ -1,15 +1,23 @@
-const Emitter = require('events')
-const emitter = new Emitter()
+const fs = require('fs')
+const path = require('path')
 
-emitter.on('message', (data, second, third)=>{
-  console.log('One argument' + ' ' + data)
-  console.log('Two argument'+ ' ' + second)
+const text = `ahhhahahahha
+100
+ahhhahaha
+100
+ahhahahaha
+`
+const pathToFile = path.resolve(__dirname, 'file.txt')
+
+fs.writeFile(pathToFile, text, (err)=>{
+  if(err) throw new Error
 })
 
-const MESSAGE = process.env.message || ''
+let counter = 100
 
-if(MESSAGE){
-  emitter.emit('message', MESSAGE, 123)
-} else{
-  emitter.emit('message', 'Empty message')
-}
+while(counter){
+  fs.appendFile(pathToFile, text, (err)=>{
+  if(err) throw new Error
+})
+counter--
+} 
