@@ -1,18 +1,15 @@
-const os = require("os");
-const cluster = require("cluster");
+const Emitter = require('events')
+const emitter = new Emitter()
 
-if (cluster.isMaster) {
-  for (let i = 0; i < os.cpus().length; i++) {
-    cluster.fork()
-  }
-  cluster.on('exit', (worker)=>{
-    console.log(`Worker c id: ${worker.process.pid} is dead`)
-    cluster.fork()
-  })
-}
-else{
-  console.log(`Workher ${process.pid} is gob`)
-  setInterval(()=>{
-    console.log(`${process.pid} is gob`)
-  }, 5000)
+emitter.on('message', (data, second, third)=>{
+  console.log('One argument' + ' ' + data)
+  console.log('Two argument'+ ' ' + second)
+})
+
+const MESSAGE = process.env.message || ''
+
+if(MESSAGE){
+  emitter.emit('message', MESSAGE, 123)
+} else{
+  emitter.emit('message', 'Empty message')
 }
