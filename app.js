@@ -1,12 +1,19 @@
-const fs = require('fs')
-const path = require('path')
+const http = require('http')
+const port = 5000;
 
-
-const pathToFile = path.resolve(__dirname, 'file2.txt')
-
-const stream = fs.createWriteStream(pathToFile)
-
-for(let i = 0; i < 100; i++){
-  stream.write(i + '\n')
-}
-stream.end()
+const server = http.createServer((req, res)=>{
+  res.writeHead(200, {
+    'Content-Type': 'application/json'
+  })
+  if(req.url==='/users'){
+    return res.end(JSON.stringify([{
+      id: 1,
+      name: 'Vasia'
+    }]))
+  }
+  if(req.url==='/posts'){
+    return res.end('POSTS')
+  }
+  res.end(req.url)
+})
+server.listen(port, () => console.log(`Server gob on the port: ${port}`))
