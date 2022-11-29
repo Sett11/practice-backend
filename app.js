@@ -3,9 +3,9 @@ const path = require('path')
 
 console.log('Start')
 
- fs.mkdir(path.resolve(__dirname, 'dir'), (err)=>{
+ fs.rmdir(path.resolve(__dirname, 'dir'), (err)=>{
   if(err) console.error(err)
-  console.log('Folder create')
+  console.log('Folder delete')
  })
 
  console.log('End')
