@@ -1,4 +1,11 @@
 const fs = require('fs')
 const path = require('path')
 
- fs.mkdirSync(path.resolve(__dirname, 'dir', 'dir1', 'dir2'), {recursive: true})
+console.log('Start')
+
+ fs.mkdir(path.resolve(__dirname, 'dir'), (err)=>{
+  if(err) console.error(err)
+  console.log('Folder create')
+ })
+
+ console.log('End')
