@@ -15,9 +15,24 @@ const appendFileAsync = (path, data)=>{
     res()
   }))
 }
+const readFileAsync = async (path)=>{
+  return new Promise((res, rej)=> fs.readFile(path, {encoding: 'utf-8'}, (err, data)=>{
+    if(err) rej(err.message)
+    res(data)
+  }))
+}
+const rmFileAsync = async (path)=>{
+  return new Promise((res, rej)=> fs.rm(path, {encoding: 'utf-8'}, (err)=>{
+    if(err) rej(err.message)
+    res()
+  }))
+}
 
 writeFileAsync(path.resolve(__dirname, 'text.txt'), 'data')
 .then(appendFileAsync(path.resolve(__dirname, 'text.txt'), '123'))
 .then(appendFileAsync(path.resolve(__dirname, 'text.txt'), '456'))
 .then(appendFileAsync(path.resolve(__dirname, 'text.txt'), '789'))
-.catch(err=> console.log(err))
+.then(readFileAsync(path.resolve(__dirname, 'text.txt')))
+.then(data => console.log(data))
+//.then(rmFileAsync(path.resolve(__dirname, 'text.txt')))
+.catch(err => console.log(err))
